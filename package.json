@@ -12,9 +12,11 @@
     "@typescript-eslint/experimental-utils": "^1.11.0",
     "@typescript-eslint/parser": "^1.13.0",
     "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "faker": "^4.1.0",
@@ -26,14 +28,19 @@
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "apollo-server": "^2.7.1",
+    "express": "^4.17.1",
+    "graphql": "^14.4.2",
+    "graphql-tools": "^4.0.5"
+  },
   "scripts": {
     "start": "node build/index.js",
     "start:ts": "node -r ts-node/register src/index.ts",
     "dev": "nodemon",
     "compile": "tsc",
     "compile:watch": "tsc --watch",
-    "lint": "eslint src --fix",
+    "lint": "eslint . --ext .ts --fix",
     "test": "jest"
   }
 }
