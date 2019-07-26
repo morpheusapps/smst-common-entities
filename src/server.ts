@@ -1,29 +1,24 @@
 import express from 'express';
-import { ApolloServer, Config } from 'apollo-server';
-import { makeExecutableSchema } from 'graphql-tools';
-import { rawSchema } from './graphql';
-
-const schema = makeExecutableSchema(rawSchema);
-
-const serverConfig: Config = {
-  schema,
-  context: {},
-  subscriptions: {},
-  playground: {
-    settings: {
-      'editor.theme': 'dark',
-      'editor.cursorShape': 'line'
-    }
-  }
-};
-const server = new ApolloServer(serverConfig);
+import bodyParser from 'body-parser';
+import { routes } from './routes';
 
 const app = express();
 
-//server.applyMiddleware({ app, path: '/graphql' });
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use('/', routes);
 
-export const runServer = async (port: number | string): Promise<void> => {
-  const { url } = await server.listen(port);
-  // eslint-disable-next-line no-console
-  console.log(url);
+interface ServerConfiguration {
+  url: string;
+  port: number | string;
+}
+
+export const runServer = async ({
+  url,
+  port
+}: ServerConfiguration): Promise<void> => {
+  app.listen(port, (): void =>
+    // eslint-disable-next-line no-console
+    console.log(`running on: ${url}:${port}`)
+  );
 };

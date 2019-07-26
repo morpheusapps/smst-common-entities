@@ -2,4 +2,4 @@ import { runServer } from './server';
 
 const port = process.env.PORT || 8000;
 
-runServer(port);
+runServer({ url: 'http://localhost', port });

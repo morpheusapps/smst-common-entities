@@ -6,18 +6,18 @@
   "configurations": [
     {
       "type": "node",
+      "request": "attach",
+      "name": "Debug",
+      "protocol": "inspector",
+      "port": 5000
+    },
+    {
+      "type": "node",
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceFolder}/build/index.js",
       "preLaunchTask": "tsc: build - tsconfig.json",
       "outFiles": ["${workspaceFolder}/build/**/*.js"]
-    },
-    {
-      "type": "node",
-      "request": "attach",
-      "name": "Local Debugging",
-      "protocol": "inspector",
-      "port": 5000
     }
   ]
 }
