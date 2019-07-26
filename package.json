@@ -6,6 +6,8 @@
   "author": "maorRoz <andory@post.bgu.ac.il>",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.8",
     "eslint": "^6.1.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-node": "^9.1.0",
@@ -18,9 +20,10 @@
   },
   "dependencies": {},
   "scripts": {
-    "start": "node build/index.js",
-    "dev": "nodemon inspect=5000 src/index.ts --watch-server",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon inspect=5000 src/index.ts",
     "compile": "tsc",
+    "compile:watch": "tsc --watch",
     "lint": "eslint src --fix",
     "test": "jest"
   }

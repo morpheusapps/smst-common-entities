@@ -1,7 +1,5 @@
 {
-  "parser": "babel-eslint",
   "extends": ["standard"],
-  "plugins": ["babel"],
   "rules": {
     "semi": [1, "always"],
     "indent": [1, 2],
