@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "moduleResolution": "node",
         "noImplicitAny": true,
         "removeComments": true,
-        "outDir": "src-compiled",
+        "outDir": "build",
         "lib": [
             "es2015"
         ]
