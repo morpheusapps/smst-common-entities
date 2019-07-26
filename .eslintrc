@@ -1,14 +1,23 @@
 {
-  "extends": ["standard"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "promise", "standard"],
+  "extends": [
+    "standard",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
   "rules": {
     "semi": [1, "always"],
     "indent": [1, 2],
     "key-spacing": 0,
-    "flowtype/define-flow-type": 1,
     "keyword-spacing": [0, { "before": false }],
     "space-before-blocks": [0, "never"],
     "spaced-comment": 0,
-    "jsx-quotes": [1, "prefer-single"],
     "max-len": "off",
     "object-curly-spacing": [1, "always"],
     "no-unmodified-loop-condition": ["off"],
@@ -22,16 +31,12 @@
     "no-restricted-properties": "warn",
     "guard-for-in": "warn",
     "comma-dangle": ["error", "never"],
-    "react/jsx-space-before-closing": [0, "never"],
-    "react/jsx-tag-spacing": [0, "never"],
-    "react/jsx-indent-props": [0, "never"],
     "no-confusing-arrow": "off",
     "import/no-unresolved": [
       2,
       { "commonjs": true, "amd": true, "caseSensitive": false }
     ],
     "one-var": "off",
-    "react/prop-types": "off",
     "no-undef": "error",
     "no-console": "error",
     "no-tabs": "off",
@@ -41,7 +46,6 @@
     "no-useless-concat": "warn",
     "prefer-default-export": "off",
     "import/prefer-default-export": "off",
-    "react/no-unused-prop-types": "warn",
     "no-unused-vars": "warn",
     "prefer-destructuring": "warn",
     "implicit-arrow-linebreak": "off",
