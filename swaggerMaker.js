@@ -9,6 +9,9 @@ module.exports = {
   tags: [
     {
       name: 'General'
+    },
+    {
+      name: 'Student'
     }
   ],
   apis: ['./src/routes/**/*.ts']
