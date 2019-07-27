@@ -41,11 +41,11 @@
     "winston": "^3.2.1"
   },
   "scripts": {
-    "start": "node build/index.js",
+    "start": "node build/src/index.js",
     "start:ts": "node -r ts-node/register src/index.ts",
     "dev": "PORT=8000 nodemon",
-    "compile": "tsc",
-    "compile:watch": "tsc --watch",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
     "lint": "eslint . --ext .ts --fix",
     "test": "jest --runInBand --watch",
     "test:coverage": "jest",
