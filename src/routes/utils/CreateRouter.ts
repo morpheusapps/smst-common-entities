@@ -9,7 +9,7 @@ export const createRouter = (path: string): Router => {
 
     logger.info(`request ${req.method} ${routePath}`);
     res.on('finish', (): void => {
-      logger.info(`response ${req.method} ${res.statusCode}  ${routePath}`);
+      logger.info(`response ${req.method} ${res.statusCode} ${routePath}`);
     });
     next();
   });

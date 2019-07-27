@@ -43,7 +43,7 @@
   "scripts": {
     "start": "node build/index.js",
     "start:ts": "node -r ts-node/register src/index.ts",
-    "dev": "nodemon",
+    "dev": "NODE_ENV=development PORT=8000 nodemon",
     "compile": "tsc",
     "compile:watch": "tsc --watch",
     "lint": "eslint . --ext .ts --fix",
