@@ -4,7 +4,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "promise", "standard"],
+  "plugins": ["@typescript-eslint", "promise", "standard", "jest"],
   "extends": [
     "standard",
     "plugin:@typescript-eslint/recommended",
@@ -14,6 +14,9 @@
     "plugin:import/warnings",
     "plugin:import/typescript"
   ],
+  "env": {
+    "jest/globals": true
+  },
   "rules": {
     "semi": [1, "always"],
     "indent": [1, 2],

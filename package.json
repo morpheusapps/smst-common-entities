@@ -18,6 +18,7 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.13.7",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.2.1",
@@ -28,6 +29,7 @@
     "lint-staged": "^9.2.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   },
@@ -44,7 +46,36 @@
     "compile": "tsc",
     "compile:watch": "tsc --watch",
     "lint": "eslint . --ext .ts --fix",
-    "test": "jest",
+    "test": "jest --runInBand --watch",
+    "test:coverage": "jest",
     "doc": "swagger-jsdoc -d swaggerMaker.js"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/?(*.)(test).ts"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "post-commit": "git update-index --again",
+      "pre-commit": "yarn lint && git add && lint-staged"
+    }
   }
 }
