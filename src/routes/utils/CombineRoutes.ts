@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { Route } from '../types/server/Route';
+import { Route } from '../../types/server/Route';
 
 export const combineRoutes = (routes: Route[]): Router => {
   const mainRouter = express.Router();

@@ -1,4 +1,4 @@
-import { createRouter } from '../../utils/CreateRouter';
+import { createRouter } from '../utils/CreateRouter';
 import { Route } from '../../types/server/Route';
 
 const path = '/health';

@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import logger from '../logger';
+import logger from '../../logger';
 
 export const createRouter = (path: string): Router => {
   const router = express.Router();
@@ -7,7 +7,10 @@ export const createRouter = (path: string): Router => {
   router.use((req, res, next): void => {
     const routePath = path + req.url;
 
-    logger.log(`${req.method} ${routePath}`);
+    logger.info(`request ${req.method} ${routePath}`);
+    res.on('finish', (): void => {
+      logger.info(`response ${req.method} ${res.statusCode}  ${routePath}`);
+    });
     next();
   });
 
