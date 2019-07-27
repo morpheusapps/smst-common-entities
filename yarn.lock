@@ -379,7 +379,7 @@
     "@types/node" "*"
     "@types/range-parser" "*"
 
-"@types/express@^4.17.0":
+"@types/express@*", "@types/express@^4.17.0":
   version "4.17.0"
   resolved "http://nexus.capitolis.com:8081/repository/cptls-npm-group/@types/express/-/express-4.17.0.tgz#49eaedb209582a86f12ed9b725160f12d04ef287"
   integrity sha512-CjaMu57cjgjuZbh9DpkloeGxV45CnMGlVd+XpG7Gm9QgVrd7KFq+X4HY0vM+2v0bczS48Wg7bvnMY5TN+Xmcfw==
@@ -471,6 +471,19 @@
   version "1.0.1"
   resolved "http://nexus.capitolis.com:8081/repository/cptls-npm-group/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+
+"@types/swagger-jsdoc@^3.0.1":
+  version "3.0.1"
+  resolved "http://nexus.capitolis.com:8081/repository/cptls-npm-group/@types/swagger-jsdoc/-/swagger-jsdoc-3.0.1.tgz#bb0a606af6c5a3e1de792912607073ce052f8414"
+  integrity sha512-OxvZVH4/WE1dD2eUcXwdJr29WrLstCqOf+mx+NwF4Af4QObQrUgtLmjHUM1QjgQtsgchQUT6+4XCX6AJ+a7SfQ==
+
+"@types/swagger-ui-express@^3.0.0":
+  version "3.0.0"
+  resolved "http://nexus.capitolis.com:8081/repository/cptls-npm-group/@types/swagger-ui-express/-/swagger-ui-express-3.0.0.tgz#7c3217cb6d900be1601053d791cfd16725cddd22"
+  integrity sha512-NDr7fgTh4govvso8IM8lkzSMuqGfhw7KX5inVohFUMjqAhDJQRfCwTHxzWk9sd/bTLtmSs9ib+A+09tf9QSt4Q==
+  dependencies:
+    "@types/express" "*"
+    "@types/serve-static" "*"
 
 "@types/yargs@^12.0.2", "@types/yargs@^12.0.9":
   version "12.0.12"

@@ -1,13 +1,12 @@
 {
-    "compilerOptions": {
-        "esModuleInterop": true,
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "outDir": "build",
-        "lib": [
-            "es2015"
-        ]
-    }
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "outDir": "build",
+    "lib": ["es2015"]
+  }
 }

@@ -9,6 +9,8 @@
     "@types/express": "^4.17.0",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.6.8",
+    "@types/swagger-jsdoc": "^3.0.1",
+    "@types/swagger-ui-express": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/experimental-utils": "^1.11.0",
     "@typescript-eslint/parser": "^1.13.0",
@@ -42,6 +44,7 @@
     "compile": "tsc",
     "compile:watch": "tsc --watch",
     "lint": "eslint . --ext .ts --fix",
-    "test": "jest"
+    "test": "jest",
+    "doc": "swagger-jsdoc -d swaggerMaker.js"
   }
 }

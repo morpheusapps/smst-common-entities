@@ -1,11 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../swagger.json';
 import { routes } from './routes';
 
 const app = express();
 
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 app.use('/', routes);
 
 interface ServerConfiguration {
