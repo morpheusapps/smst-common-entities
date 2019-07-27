@@ -1,9 +1,9 @@
-import { createRouter } from '../utils/CreateRouter';
+import { CreateRouter } from '../utils/CreateRouter';
 import { Route } from '../../types/server/Route';
 
 const path = '/health';
 
-const router = createRouter(path);
+const router = CreateRouter(path);
 
 /**
  * @swagger
