@@ -6,5 +6,9 @@ export async function GetAllStudents(
   req: Request,
   res: Response
 ): Promise<void> {
-  res.sendStatus(200);
+  const studentRepository = getManager().getRepository(Student);
+
+  const students = await studentRepository.find();
+
+  res.send(students);
 }
