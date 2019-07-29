@@ -1,4 +1,4 @@
-import { Urls } from './types/server/Urls';
+import { Urls } from './types/serverTypes';
 
 export const urls: Urls = {
   local: 'http://localhost',

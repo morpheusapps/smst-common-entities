@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import { createConnection, Connection } from 'typeorm';
 import { Student as StudentEntity } from './models/Student';
+import { User as UserEntity } from './models/User';
+import { School as SchoolEntity } from './models/School';
 
 export const connectDb = (): Promise<Connection> =>
   createConnection({
@@ -10,7 +12,7 @@ export const connectDb = (): Promise<Connection> =>
     username: 'root',
     password: 'root',
     database: 'postgres',
-    entities: [StudentEntity],
+    entities: [StudentEntity, UserEntity, SchoolEntity],
     synchronize: true,
     logging: false
   });

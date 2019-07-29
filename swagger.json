@@ -51,13 +51,17 @@
             "description": "Student Credentials",
             "schema": {
               "properties": {
-                "id": {
+                "email": {
                   "type": "string",
+                  "example": "email@gmail.com"
+                },
+                "schoolId": {
+                  "type": "number",
                   "example": 1234
                 },
-                "name": {
-                  "type": "string",
-                  "example": "maor"
+                "userId": {
+                  "type": "number",
+                  "example": 1234
                 }
               }
             }
