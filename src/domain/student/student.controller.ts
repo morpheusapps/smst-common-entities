@@ -1,8 +1,15 @@
-import { CreateRouter } from '../utils/CreateRouter';
-import { CreateStudent, GetAllStudents } from '../../domain/student';
-import { API, Route, MethodType } from '../../types/serverTypes';
+import { Controller, Body, Get, Post } from '@nestjs/common';
+import { StudentService } from './student.service';
+import { Student } from './student.entity';
 
-const apis: API[] = [
+@Controller('student')
+export class StudentController {
+  private readonly studentService: StudentService;
+
+  public constructor(studentService: StudentService) {
+    this.studentService = studentService;
+  }
+
   /**
    * @swagger
    *
@@ -18,11 +25,11 @@ const apis: API[] = [
    *       200:
    *         description: OK
    */
-  {
-    route: '/',
-    method: MethodType.Get,
-    action: GetAllStudents
-  },
+  @Get()
+  public getAll(): Promise<Student[]> {
+    return this.studentService.getAll();
+  }
+
   /**
    * @swagger
    *
@@ -52,20 +59,8 @@ const apis: API[] = [
    *       200:
    *         description: OK
    */
-  {
-    route: '/',
-    method: MethodType.POST,
-    action: CreateStudent
+  @Post()
+  public create(@Body() student: Student): Promise<Student> {
+    return this.studentService.create(student);
   }
-];
-
-const path = '/student';
-
-const router = CreateRouter({ path, apis });
-
-const route: Route = {
-  router,
-  path
-};
-
-export default route;
+}

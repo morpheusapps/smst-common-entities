@@ -5,7 +5,7 @@ import {
   OneToMany,
   ObjectType
 } from 'typeorm';
-import { Student } from './Student';
+import { Student } from '../student';
 
 @Entity()
 export class School {

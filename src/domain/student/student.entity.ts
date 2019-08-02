@@ -5,8 +5,8 @@ import {
   ObjectType,
   ManyToOne
 } from 'typeorm';
-import { School } from './School';
-import { User } from './User';
+import { School } from '../school/school.entity';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Student {

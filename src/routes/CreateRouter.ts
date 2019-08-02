@@ -1,6 +1,6 @@
 import express, { Router, Request, Response } from 'express';
-import { MethodType, Middleware } from '../../types/serverTypes';
-import logger from '../../logger';
+import { MethodType, Middleware } from '../types/serverTypes';
+import logger from '../logger';
 
 interface API {
   route: string;
