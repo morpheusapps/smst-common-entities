@@ -3,8 +3,9 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { RunServer } from './utils/RunServer';
 import { GetUrlByEnv } from './utils/GetUrlByEnv';
+import { ApiLogger } from './utils/ApiLogger';
+import { Swagger } from './utils/swagger';
 import { ApplicationModule } from './app';
-import { Swagger } from './swagger';
 import { urls } from './const';
 
 export const runServer = async (port: string | number): Promise<void> => {
@@ -14,6 +15,7 @@ export const runServer = async (port: string | number): Promise<void> => {
     new ExpressAdapter(server)
   );
   Swagger(app);
+  ApiLogger(app);
   const getUrlByEnv = GetUrlByEnv(urls);
   return RunServer({
     app,
