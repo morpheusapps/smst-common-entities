@@ -33,6 +33,7 @@
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
+    "ts-node-dev": "^1.0.0-pre.33",
     "typescript": "^3.5.3"
   },
   "dependencies": {
@@ -52,7 +53,6 @@
   },
   "scripts": {
     "start": "node build/src/index.js",
-    "start:ts": "node -r ts-node/register src/index.ts",
     "dev": "PORT=8000 nodemon",
     "build": "tsc",
     "build:watch": "tsc --watch",
