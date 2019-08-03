@@ -1,10 +1,14 @@
 import express from 'express';
+import { NestFactory } from '@nestjs/core';
 import { RunServer } from './RunServer';
 import { Fakes } from '../../tests/Fakes';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-jest.mock('express', () => () => ({
-  listen: jest.fn((port: number): number => port)
+jest.mock('@nestjs/core', (): {} => ({
+  NestFactory: {
+    create: jest.fn((): { listen: Function } => ({
+      listen: jest.fn((port: number): number => port)
+    }))
+  }
 }));
 
 describe('RunServer', (): void => {
@@ -13,7 +17,7 @@ describe('RunServer', (): void => {
     mapEnvToUrl = jest.fn((): string => Fakes.string());
   });
   test('development env', async (): Promise<void> => {
-    const app = express();
+    const app = await NestFactory.create(express());
     const env = Fakes.string();
     const port = Fakes.number();
 
