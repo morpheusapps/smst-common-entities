@@ -41,13 +41,11 @@
     "@nestjs/platform-express": "^6.5.3",
     "@nestjs/swagger": "^3.1.0",
     "@nestjs/typeorm": "^6.1.3",
-    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "pg": "^7.12.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.2",
-    "swagger-jsdoc": "^3.3.0",
     "swagger-ui-express": "^4.0.2",
     "typeorm": "^0.2.18",
     "winston": "^3.2.1"
@@ -60,8 +58,7 @@
     "build:watch": "tsc --watch",
     "lint": "eslint . --ext .ts --fix",
     "test": "jest --runInBand --watch",
-    "test:coverage": "jest",
-    "doc": "swagger-jsdoc -d swaggerMaker.js"
+    "test:coverage": "jest"
   },
   "jest": {
     "transform": {
