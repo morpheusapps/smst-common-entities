@@ -4,7 +4,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { Student } from './student.entity';
 import { StudentController } from './student.controller';
 import { StudentService } from './student.service';
-import { StudentErrorService } from './studentError.service';
+import { StudentErrorInterceptor } from './studentError.interceptor';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Student])],
@@ -13,7 +13,7 @@ import { StudentErrorService } from './studentError.service';
     StudentService,
     {
       provide: APP_INTERCEPTOR,
-      useClass: StudentErrorService
+      useClass: StudentErrorInterceptor
     }
   ]
 })

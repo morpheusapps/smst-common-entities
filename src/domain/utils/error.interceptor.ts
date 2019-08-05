@@ -1,8 +1,13 @@
 import {
   BadRequestException,
   ConflictException,
-  InternalServerErrorException
+  InternalServerErrorException,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler
 } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 enum ErrorType {
   FOREIGN_KEY_VIOLATION = 'FOREIGN_KEY_VIOLATION',
@@ -32,7 +37,7 @@ const getErrorType = (rawErrorMessage: string): ErrorType | void => {
   return errorMessagesToErrorTypesMap[relatedErrorMessage];
 };
 
-export class ErrorService {
+export abstract class ErrorInterceptor implements NestInterceptor {
   protected keysToFieldsMap: { [key: string]: string } = {};
 
   protected handleDbError = ({
@@ -80,4 +85,22 @@ export class ErrorService {
         });
     }
   };
+
+  protected abstract resolveError(
+    error: Error & { detail: string }
+  ): Observable<never>;
+
+  public intercept(
+    context: ExecutionContext,
+    next: CallHandler
+  ): Observable<unknown> {
+    return next
+      .handle()
+      .pipe(
+        catchError(
+          (error: Error & { detail: string }): Observable<never> =>
+            this.resolveError(error)
+        )
+      );
+  }
 }
