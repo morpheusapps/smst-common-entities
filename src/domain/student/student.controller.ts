@@ -38,8 +38,9 @@ export class StudentController {
     try {
       newStudent = await this.studentService.create(student);
     } catch (e) {
-      this.studentError.resolveStudentCreate(e);
+      this.studentError.resolveStudentError(e);
     }
+
     return newStudent;
   }
 }
