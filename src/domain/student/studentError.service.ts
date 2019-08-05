@@ -1,8 +1,17 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ErrorService } from '../utils/ErrorService';
 
 @Injectable()
-export class StudentErrorService extends ErrorService {
+export class StudentErrorService extends ErrorService
+  implements NestInterceptor {
   protected keysToFieldsMap: { [key: string]: string } = {
     email: 'email',
     schoolId: 'school',
@@ -13,7 +22,7 @@ export class StudentErrorService extends ErrorService {
     name,
     message,
     detail
-  }: Error & { name: string; message: string; detail: string }): void {
+  }: Error & { detail: string }): Observable<never> {
     if (name === 'QueryFailedError') {
       this.handleDbError({ message, detail });
     }
@@ -21,5 +30,19 @@ export class StudentErrorService extends ErrorService {
     throw new InternalServerErrorException({
       message: 'unknown error type'
     });
+  }
+
+  public intercept(
+    context: ExecutionContext,
+    next: CallHandler
+  ): Observable<unknown> {
+    return next
+      .handle()
+      .pipe(
+        catchError(
+          (error: Error & { detail: string }): Observable<never> =>
+            this.resolveStudentError(error)
+        )
+      );
   }
 }
