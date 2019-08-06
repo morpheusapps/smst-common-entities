@@ -1,26 +1,31 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { ErrorInterceptor } from '../utils/error.interceptor';
+import { ErrorInterceptor } from '../interceptors/error.interceptor';
+import { GlobalErrorHandler } from '../error/handlers/GlobalErrorhandler';
 
 @Injectable()
 export class StudentErrorInterceptor extends ErrorInterceptor {
+  private handleGlobalError: (
+    keysToFieldsMap: { [key: string]: string },
+    { name, message, detail }: Error & { detail: string }
+  ) => void;
+
   protected keysToFieldsMap: { [key: string]: string } = {
     email: 'email',
     schoolId: 'school',
     userId: 'user'
   };
 
-  public resolveError({
-    name,
-    message,
-    detail
-  }: Error & { detail: string }): Observable<never> {
-    if (name === 'QueryFailedError') {
-      this.handleDbError({ message, detail });
-    }
+  public constructor({ handle: handleGlobalError }: GlobalErrorHandler) {
+    super();
+    this.handleGlobalError = handleGlobalError;
+  }
+
+  public resolveError(error: Error & { detail: string }): Observable<never> {
+    this.handleGlobalError(this.keysToFieldsMap, error);
 
     throw new InternalServerErrorException({
-      message: 'unknown error type'
+      message: 'unknown error'
     });
   }
 }
