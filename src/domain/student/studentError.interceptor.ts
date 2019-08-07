@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { ErrorInterceptor } from '../interceptors/error.interceptor';
-import { GlobalErrorHandler } from '../error/handlers/GlobalErrorhandler';
+import { ErrorInterceptor } from '../interceptors';
+import { GlobalErrorHandler } from '../error';
 
 @Injectable()
 export class StudentErrorInterceptor extends ErrorInterceptor {
