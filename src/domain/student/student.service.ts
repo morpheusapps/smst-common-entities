@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult } from 'typeorm';
 import { Student } from './student.entity';
 
 @Injectable()
@@ -24,5 +24,13 @@ export class StudentService {
 
   public getStudent(id: string): Promise<Student> {
     return this.studentRepository.findOneOrFail(id);
+  }
+
+  public updateStudent(student: Student): Promise<Student> {
+    return this.studentRepository.save(student);
+  }
+
+  public removeStudent(id: string): Promise<DeleteResult> {
+    return this.studentRepository.delete(id);
   }
 }
