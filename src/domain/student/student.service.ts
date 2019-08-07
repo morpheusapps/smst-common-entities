@@ -21,4 +21,8 @@ export class StudentService {
   public create(student: Student): Promise<Student> {
     return this.studentRepository.save(student);
   }
+
+  public getStudent(id: string): Promise<Student> {
+    return this.studentRepository.findOneOrFail(id);
+  }
 }

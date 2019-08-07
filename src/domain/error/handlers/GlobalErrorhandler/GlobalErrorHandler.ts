@@ -1,5 +1,5 @@
 import { DbErrorHandler } from '../DbErrorHandler';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class GlobalErrorHandler {
@@ -11,14 +11,18 @@ export class GlobalErrorHandler {
 
   public handle = (
     keysToFieldsMap: { [key: string]: string },
-    { name, message, detail }: Error & { detail: string }
+    error: Error & { detail: string }
   ): void => {
-    if (name === 'QueryFailedError') {
-      this.dbErrorHandler.handle({
+    if (error.name === 'QueryFailedError') {
+      return this.dbErrorHandler.handle({
         keysToFieldsMap,
-        message,
-        detail
+        message: error.message,
+        detail: error.detail
       });
+    }
+
+    if (error.name === 'EntityNotFound') {
+      throw new NotFoundException();
     }
   };
 }

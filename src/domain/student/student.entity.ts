@@ -11,6 +11,10 @@ import { User } from '../user/user.entity';
 
 @Entity()
 export class Student {
+  @ApiModelProperty({
+    readOnly: true,
+    example: 'd69abc90-a8f3-4116-aeca-838ac72a8bd1'
+  })
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
