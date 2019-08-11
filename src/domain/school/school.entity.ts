@@ -13,16 +13,10 @@ export class School {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @ApiModelProperty({ required: true, example: 'name@gmail.com' })
-  @Column()
+  @ApiModelProperty({ required: true, example: 'school_name' })
+  @Column({ unique: true })
   public name: string;
 
-  @ApiModelProperty({
-    example: [
-      'd69abc90-a8f3-4116-aeca-838ac72a8bd1',
-      '2bd17fcf-cf42-4a55-8c6a-8f29afecc43f'
-    ]
-  })
   @OneToMany(
     (): ObjectType<Student> => Student,
     (student: Student): School => student.school

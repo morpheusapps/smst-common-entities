@@ -6,18 +6,21 @@ import {
   Param,
   Put,
   Patch,
+  Delete,
   HttpCode,
-  Res,
   HttpStatus,
-  Delete
+  Res,
+  UseInterceptors
 } from '@nestjs/common';
 import { ApiUseTags, ApiResponse, ApiImplicitParam } from '@nestjs/swagger';
 import { Response } from 'express';
+import { StudentErrorInterceptor } from './studentError.interceptor';
 import { StudentService } from './student.service';
 import { Student } from './student.entity';
 
-@ApiUseTags('student')
 @Controller('student')
+@UseInterceptors(StudentErrorInterceptor)
+@ApiUseTags('student')
 export class StudentController {
   private readonly studentService: StudentService;
 

@@ -28,7 +28,8 @@ export class Student {
   })
   @ManyToOne(
     (): ObjectType<School> => School,
-    (school: School): Student[] => school.students
+    (school: School): Student[] => school.students,
+    { nullable: false }
   )
   public school: School;
 
@@ -38,8 +39,8 @@ export class Student {
   })
   @ManyToOne(
     (): ObjectType<User> => User,
-    (user: User): Student[] => user.students /*,
-    { nullable: false }*/
+    (user: User): Student[] => user.students,
+    { nullable: false }
   )
   public user: User;
 }
