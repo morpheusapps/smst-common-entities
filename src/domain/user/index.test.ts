@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, InternalServerErrorException } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { User } from './user.entity';
@@ -33,14 +33,29 @@ describe('/user', (): void => {
     app.close();
   });
 
-  test('GET', async (): Promise<void> => {
-    const expectedUsers = [FakeUser(), FakeUser()];
-    const userServiceMock = { getAll: (): User[] => expectedUsers };
+  describe('GET', (): void => {
+    test('GET 200', async (): Promise<void> => {
+      const expectedUsers = [FakeUser(), FakeUser()];
+      const userServiceMock = { getAll: (): User[] => expectedUsers };
 
-    await createTestApp(userServiceMock);
+      await createTestApp(userServiceMock);
 
-    const response = await request(server).get('/user');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(expectedUsers);
+      const response = await request(server).get('/user');
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(expectedUsers);
+    });
+
+    test('GET 500', async (): Promise<void> => {
+      const userServiceMock = {
+        getAll: (): User[] => {
+          throw new InternalServerErrorException();
+        }
+      };
+
+      await createTestApp(userServiceMock);
+
+      const response = await request(server).get('/user');
+      expect(response.status).toBe(500);
+    });
   });
 });

@@ -12,7 +12,17 @@ import {
   Res,
   UseInterceptors
 } from '@nestjs/common';
-import { ApiUseTags, ApiResponse, ApiImplicitParam } from '@nestjs/swagger';
+import {
+  ApiUseTags,
+  ApiImplicitParam,
+  ApiBadRequestResponse,
+  ApiConflictResponse,
+  ApiInternalServerErrorResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiNotFoundResponse,
+  ApiNoContentResponse
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import { SchoolErrorInterceptor } from './schoolError.interceptor';
 import { SchoolService } from './school.service';
@@ -29,8 +39,7 @@ export class SchoolController {
   }
 
   @Get()
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully fetched schools data',
     type: [School]
   })
@@ -39,14 +48,13 @@ export class SchoolController {
   }
 
   @Post()
-  @ApiResponse({
-    status: 201,
+  @ApiCreatedResponse({
     description: 'Successfully created school',
     type: School
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({ status: 409, description: 'Conflict' })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiConflictResponse({ description: 'Conflict' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public create(@Body() school: School): Promise<School> {
     delete school.id;
     return this.schoolService.create(school);
@@ -54,14 +62,12 @@ export class SchoolController {
 
   @Get(':id')
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully fetched schools data',
     type: [School]
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({
-    status: 404,
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiNotFoundResponse({
     description: 'No school has been found'
   })
   public getSchool(@Param('id') id: string): Promise<School> {
@@ -70,19 +76,17 @@ export class SchoolController {
 
   @Put(':id')
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully updated school',
     type: School
   })
-  @ApiResponse({
-    status: 201,
+  @ApiCreatedResponse({
     description: 'Successfully created school',
     type: School
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({ status: 409, description: 'Conflict' })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiConflictResponse({ description: 'Conflict' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async updateOrCreate(
     @Param('id') id: string,
     @Body() school: School,
@@ -109,17 +113,15 @@ export class SchoolController {
   @Delete(':id')
   @HttpCode(204)
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 204,
+  @ApiNoContentResponse({
     description: 'Successfully removed school',
     type: School
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({
-    status: 404,
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiNotFoundResponse({
     description: 'No school has been found'
   })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async delete(@Param('id') id: string): Promise<void> {
     await this.schoolService.getSchool(id);
     this.schoolService.removeSchool(id);
@@ -127,18 +129,16 @@ export class SchoolController {
 
   @Patch(':id')
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully updated school',
     type: School
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({
-    status: 404,
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiNotFoundResponse({
     description: 'No school has been found'
   })
-  @ApiResponse({ status: 409, description: 'Conflict' })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiConflictResponse({ description: 'Conflict' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async update(
     @Param('id') id: string,
     @Body() school: School
