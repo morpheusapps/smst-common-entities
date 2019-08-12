@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { ErrorInterceptor } from '../interceptors';
 import { GlobalErrorHandler } from '../error';
@@ -24,8 +24,6 @@ export class UserErrorInterceptor extends ErrorInterceptor {
   public resolveError(error: Error & { detail: string }): Observable<never> {
     this.handleGlobalError(this.keysToFieldsMap, error);
 
-    throw new InternalServerErrorException({
-      message: 'unknown error'
-    });
+    return this.throwInternalError({ message: 'unknown error' }, error);
   }
 }

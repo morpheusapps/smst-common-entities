@@ -12,7 +12,17 @@ import {
   Res,
   UseInterceptors
 } from '@nestjs/common';
-import { ApiUseTags, ApiResponse, ApiImplicitParam } from '@nestjs/swagger';
+import {
+  ApiUseTags,
+  ApiImplicitParam,
+  ApiBadRequestResponse,
+  ApiConflictResponse,
+  ApiInternalServerErrorResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiNotFoundResponse,
+  ApiNoContentResponse
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import { UserErrorInterceptor } from './userError.interceptor';
 import { UserService } from './user.service';
@@ -29,8 +39,7 @@ export class UserController {
   }
 
   @Get()
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully fetched users data',
     type: [User]
   })
@@ -39,14 +48,13 @@ export class UserController {
   }
 
   @Post()
-  @ApiResponse({
-    status: 201,
+  @ApiCreatedResponse({
     description: 'Successfully created user',
     type: User
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({ status: 409, description: 'Conflict' })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiConflictResponse({ description: 'Conflict' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public create(@Body() user: User): Promise<User> {
     delete user.id;
     return this.userService.create(user);
@@ -54,14 +62,12 @@ export class UserController {
 
   @Get(':id')
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully fetched users data',
     type: [User]
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({
-    status: 404,
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiNotFoundResponse({
     description: 'No user has been found'
   })
   public getUser(@Param('id') id: string): Promise<User> {
@@ -70,19 +76,17 @@ export class UserController {
 
   @Put(':id')
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully updated user',
     type: User
   })
-  @ApiResponse({
-    status: 201,
+  @ApiCreatedResponse({
     description: 'Successfully created user',
     type: User
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({ status: 409, description: 'Conflict' })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiConflictResponse({ description: 'Conflict' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async updateOrCreate(
     @Param('id') id: string,
     @Body() user: User,
@@ -109,17 +113,15 @@ export class UserController {
   @Delete(':id')
   @HttpCode(204)
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 204,
+  @ApiNoContentResponse({
     description: 'Successfully removed user',
     type: User
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({
-    status: 404,
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiNotFoundResponse({
     description: 'No user has been found'
   })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async delete(@Param('id') id: string): Promise<void> {
     await this.userService.getUser(id);
     this.userService.removeUser(id);
@@ -127,18 +129,16 @@ export class UserController {
 
   @Patch(':id')
   @ApiImplicitParam({ name: 'id', required: true })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'Successfully updated user',
     type: User
   })
-  @ApiResponse({ status: 400, description: 'Bad request' })
-  @ApiResponse({
-    status: 404,
+  @ApiBadRequestResponse({ description: 'Bad request' })
+  @ApiNotFoundResponse({
     description: 'No user has been found'
   })
-  @ApiResponse({ status: 409, description: 'Conflict' })
-  @ApiResponse({ status: 500, description: 'Server error' })
+  @ApiConflictResponse({ description: 'Conflict' })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async update(
     @Param('id') id: string,
     @Body() user: User

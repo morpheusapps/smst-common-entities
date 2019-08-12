@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { ErrorType } from '../../types/ErrorType';
 import { GetErrorTypeByErrorMessage } from '../../utils/GetErrorTypeByErrorMessage';
+import logger from '../../../../logger';
 
 const dbErrorMessagesToErrorTypesMap: { [key: string]: ErrorType } = {
   'violates foreign key constraint': ErrorType.FOREIGN_KEY_VIOLATION,
@@ -72,6 +73,9 @@ export class DbErrorHandler {
         });
       }
       default:
+        logger.error(
+          `unknown QueryFailedError, message=${message} detail=${detail}`
+        );
         throw new InternalServerErrorException({
           message: 'unknown error type'
         });
