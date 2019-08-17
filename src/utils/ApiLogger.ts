@@ -7,9 +7,14 @@ const ApiLoggerMiddleware = (
   res: Response,
   next: NextFunction
 ): void => {
-  logger.info(`request ${req.method} ${req.url}`);
+  logger.info(`handling request ${req.method} ${req.url} ...`);
+  const onRequestTime = Date.now();
   res.on('finish', (): void => {
-    logger.info(`response ${req.method} ${res.statusCode} ${req.url}`);
+    const onResponseTime = Date.now();
+    const responseTime = onResponseTime - onRequestTime;
+    logger.info(
+      `response ${req.method} ${req.url} ${res.statusCode} took ${responseTime}ms`
+    );
   });
   next();
 };
