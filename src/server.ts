@@ -1,23 +1,21 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../swagger.json';
-import { routes } from './routes';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import { NestFactory } from '@nestjs/core';
 import { RunServer } from './utils/RunServer';
 import { GetUrlByEnv } from './utils/GetUrlByEnv';
+import { ApiLogger } from './utils/ApiLogger';
+import { Swagger } from './utils/swagger';
+import { ApplicationModule } from './app';
 import { urls } from './const';
-import { Server } from 'http';
 
-const app = express();
-
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.use('/', routes);
-
-export const runServer = (port: string | number): Promise<Server> => {
+export const runServer = async (port: string | number): Promise<void> => {
+  const server = express();
+  const app = await NestFactory.create(
+    ApplicationModule,
+    new ExpressAdapter(server)
+  );
+  Swagger(app);
+  ApiLogger(app);
   const getUrlByEnv = GetUrlByEnv(urls);
   return RunServer({
     app,

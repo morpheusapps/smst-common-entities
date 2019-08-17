@@ -1,7 +1,6 @@
 import { GetUrlByEnv } from './GetUrlByEnv';
-import { Env } from '../types/server/Env';
-import { FakeUrls } from '../types/server/Urls.fakes';
-import { Urls } from '../types/server/Urls';
+import { Env, Urls } from '../types/serverTypes';
+import { FakeUrls } from '../types/serverTypes/index.fake';
 import { Fakes } from '../../tests/Fakes';
 
 describe('GetUrlByEnv', (): void => {

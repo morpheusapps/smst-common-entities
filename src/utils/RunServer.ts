@@ -1,9 +1,8 @@
-import { Express } from 'express';
-import { Server } from 'http';
+import { INestApplication } from '@nestjs/common';
 import logger from '../logger';
 
 interface ServerConfiguration {
-  app: Express;
+  app: INestApplication;
   env: string;
   port: number | string;
   mapEnvToUrl: (env: string) => string;
@@ -14,7 +13,7 @@ export const RunServer = async ({
   env,
   port,
   mapEnvToUrl
-}: ServerConfiguration): Promise<Server> => {
+}: ServerConfiguration): Promise<void> => {
   const url = mapEnvToUrl(env);
   return app.listen(port, (): void => {
     logger.info(`running on: ${url}:${port}`);

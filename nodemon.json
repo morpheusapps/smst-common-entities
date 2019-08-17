@@ -1,7 +1,7 @@
 {
   "watch": ["src"],
   "ext": "ts",
-  "exec": "node --inspect=5000 -r ts-node/register src/index.ts",
+  "exec": "ts-node-dev --inspect=5000 src/index.ts",
   "ignore": [".git", "node_modules/**/node_modules"],
   "env": {
     "NODE_ENV": "development"
