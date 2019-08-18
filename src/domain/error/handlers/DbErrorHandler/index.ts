@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DbErrorHandler } from './DbErrorHandler';
-import { GetErrorTypeByErrorMessageModule } from '../../utils/getErrorTypeByErrorMessage';
+import { GetErrorTypeByErrorMessageModule } from '../../utils/GetErrorTypeByErrorMessage';
 
 @Module({
   imports: [GetErrorTypeByErrorMessageModule],
