@@ -5,6 +5,7 @@ import { SchoolController } from './school.controller';
 import { School } from './school.entity';
 import { FakeSchool } from './school.fake';
 import { Fakes } from '../../../tests/Fakes';
+import { NotFoundException } from '@nestjs/common';
 
 describe('schoolController', (): void => {
   let schoolService: SchoolService;
@@ -56,7 +57,7 @@ describe('schoolController', (): void => {
       const expectedSchool: School = FakeSchool();
       jest.spyOn(schoolService, 'getSchool').mockImplementation(
         (): Promise<School> => {
-          throw new Error();
+          throw new NotFoundException();
         }
       );
       jest

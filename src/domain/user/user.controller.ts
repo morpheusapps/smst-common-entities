@@ -100,6 +100,7 @@ export class UserController {
       if (!(e instanceof NotFoundException)) {
         throw e;
       }
+
       const createdUser = await this.userService.create({
         ...user,
         id

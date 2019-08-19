@@ -10,7 +10,8 @@ import {
   HttpCode,
   HttpStatus,
   Res,
-  UseInterceptors
+  UseInterceptors,
+  NotFoundException
 } from '@nestjs/common';
 import {
   ApiUseTags,
@@ -96,6 +97,10 @@ export class StudentController {
     try {
       await this.studentService.getStudent(id);
     } catch (e) {
+      if (!(e instanceof NotFoundException)) {
+        throw e;
+      }
+
       const createdStudent = await this.studentService.create({
         ...student,
         id
