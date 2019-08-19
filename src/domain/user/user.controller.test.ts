@@ -5,6 +5,7 @@ import { UserController } from './user.controller';
 import { User } from './user.entity';
 import { FakeUser } from './user.fake';
 import { Fakes } from '../../../tests/Fakes';
+import { NotFoundException } from '@nestjs/common';
 
 describe('userController', (): void => {
   let userService: UserService;
@@ -52,7 +53,7 @@ describe('userController', (): void => {
       const expectedUser: User = FakeUser();
       jest.spyOn(userService, 'getUser').mockImplementation(
         (): Promise<User> => {
-          throw new Error();
+          throw new NotFoundException();
         }
       );
       jest
@@ -121,7 +122,7 @@ describe('userController', (): void => {
     });
   });
 
-  describe('patch', (): void => {
+  describe('update', (): void => {
     beforeEach((): void => {
       jest
         .spyOn(userService, 'updateUser')
@@ -130,7 +131,7 @@ describe('userController', (): void => {
         );
     });
 
-    test('patch success', async (): Promise<void> => {
+    test('update success', async (): Promise<void> => {
       const expectedId = Fakes.uuid();
       const expectedUser = FakeUser({ id: expectedId });
       jest

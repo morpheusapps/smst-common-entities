@@ -43,6 +43,7 @@ export class SchoolController {
     description: 'Successfully fetched schools data',
     type: [School]
   })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public getAll(): Promise<School[]> {
     return this.schoolService.getAll();
   }
@@ -70,6 +71,7 @@ export class SchoolController {
   @ApiNotFoundResponse({
     description: 'No school has been found'
   })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public getSchool(@Param('id') id: string): Promise<School> {
     return this.schoolService.getSchool(id);
   }
@@ -85,7 +87,6 @@ export class SchoolController {
     type: School
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
-  @ApiConflictResponse({ description: 'Conflict' })
   @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async updateOrCreate(
     @Param('id') id: string,
@@ -137,7 +138,6 @@ export class SchoolController {
   @ApiNotFoundResponse({
     description: 'No school has been found'
   })
-  @ApiConflictResponse({ description: 'Conflict' })
   @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async update(
     @Param('id') id: string,

@@ -43,6 +43,7 @@ export class StudentController {
     description: 'Successfully fetched students data',
     type: [Student]
   })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public getAll(): Promise<Student[]> {
     return this.studentService.getAll();
   }
@@ -70,6 +71,7 @@ export class StudentController {
   @ApiNotFoundResponse({
     description: 'No student has been found'
   })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public getStudent(@Param('id') id: string): Promise<Student> {
     return this.studentService.getStudent(id);
   }
@@ -85,7 +87,6 @@ export class StudentController {
     type: Student
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
-  @ApiConflictResponse({ description: 'Conflict' })
   @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async updateOrCreate(
     @Param('id') id: string,
@@ -137,7 +138,6 @@ export class StudentController {
   @ApiNotFoundResponse({
     description: 'No student has been found'
   })
-  @ApiConflictResponse({ description: 'Conflict' })
   @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async update(
     @Param('id') id: string,

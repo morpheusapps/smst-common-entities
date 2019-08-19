@@ -10,7 +10,8 @@ import {
   HttpCode,
   HttpStatus,
   Res,
-  UseInterceptors
+  UseInterceptors,
+  NotFoundException
 } from '@nestjs/common';
 import {
   ApiUseTags,
@@ -43,6 +44,7 @@ export class UserController {
     description: 'Successfully fetched users data',
     type: [User]
   })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public getAll(): Promise<User[]> {
     return this.userService.getAll();
   }
@@ -70,6 +72,7 @@ export class UserController {
   @ApiNotFoundResponse({
     description: 'No user has been found'
   })
+  @ApiInternalServerErrorResponse({ description: 'Server error' })
   public getUser(@Param('id') id: string): Promise<User> {
     return this.userService.getUser(id);
   }
@@ -85,7 +88,6 @@ export class UserController {
     type: User
   })
   @ApiBadRequestResponse({ description: 'Bad request' })
-  @ApiConflictResponse({ description: 'Conflict' })
   @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async updateOrCreate(
     @Param('id') id: string,
@@ -95,6 +97,9 @@ export class UserController {
     try {
       await this.userService.getUser(id);
     } catch (e) {
+      if (!(e instanceof NotFoundException)) {
+        throw e;
+      }
       const createdUser = await this.userService.create({
         ...user,
         id
@@ -137,7 +142,6 @@ export class UserController {
   @ApiNotFoundResponse({
     description: 'No user has been found'
   })
-  @ApiConflictResponse({ description: 'Conflict' })
   @ApiInternalServerErrorResponse({ description: 'Server error' })
   public async update(
     @Param('id') id: string,
