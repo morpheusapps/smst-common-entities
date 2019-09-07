@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { DomainError } from '../../types/DomainError';
+import { DomainError } from '../../types';
 
 @Injectable()
 export class GetDomainErrorByErrorMessage {

@@ -2,4 +2,4 @@ export { DbErrorHandler, DbErrorHandlerModule } from './DbErrorHandler';
 export {
   GlobalErrorHandler,
   GlobalErrorHandlerModule
-} from './GlobalErrorhandler';
+} from './GlobalErrorHandler';
