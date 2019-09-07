@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { DbErrorHandler } from './DbErrorHandler';
-import { GetErrorTypeByErrorMessageModule } from '../../utils/GetErrorTypeByErrorMessage';
+import { GetDomainErrorByErrorMessageModule } from '../../utils/GetDomainErrorByErrorMessage';
 
 @Module({
-  imports: [GetErrorTypeByErrorMessageModule],
+  imports: [GetDomainErrorByErrorMessageModule],
   providers: [DbErrorHandler],
   exports: [DbErrorHandler]
 })

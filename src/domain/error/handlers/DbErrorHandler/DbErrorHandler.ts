@@ -4,28 +4,28 @@ import {
   InternalServerErrorException,
   Injectable
 } from '@nestjs/common';
-import { ErrorType } from '../../types/ErrorType';
-import { GetErrorTypeByErrorMessage } from '../../utils/GetErrorTypeByErrorMessage';
+import { DomainError, DbError } from '../../types/DomainError';
+import { GetDomainErrorByErrorMessage } from '../../utils/GetDomainErrorByErrorMessage';
 import logger from '../../../../logger';
 
-const dbErrorMessagesToErrorTypesMap: { [key: string]: ErrorType } = {
-  'violates foreign key constraint': ErrorType.FOREIGN_KEY_VIOLATION,
-  'duplicate key value violates unique constraint': ErrorType.KEY_DUPLICATION,
-  'violates not-null constraint': ErrorType.MISSING_KEY,
-  'invalid input syntax for': ErrorType.INVALID_VALUE
+const dbErrorMessagesToDomainErrorsMap: { [key: string]: DomainError } = {
+  'violates foreign key constraint': DbError.FOREIGN_KEY_VIOLATION,
+  'duplicate key value violates unique constraint': DbError.KEY_DUPLICATION,
+  'violates not-null constraint': DbError.MISSING_KEY,
+  'invalid input syntax for': DbError.INVALID_VALUE
 };
 
 @Injectable()
 export class DbErrorHandler {
-  private getErrorTypeByErrorMessageModule: (
+  private getDomainErrorByErrorMessageModule: (
     rawErrorMessage: string,
-    errorMessagesToErrorTypesMap: { [key: string]: ErrorType }
-  ) => ErrorType | void;
+    errorMessagesToDomainErrorsMap: { [key: string]: DomainError }
+  ) => DomainError | void;
 
   public constructor({
-    execute: getErrorTypeByErrorMessageModule
-  }: GetErrorTypeByErrorMessage) {
-    this.getErrorTypeByErrorMessageModule = getErrorTypeByErrorMessageModule;
+    execute: getDomainErrorByErrorMessageModule
+  }: GetDomainErrorByErrorMessage) {
+    this.getDomainErrorByErrorMessageModule = getDomainErrorByErrorMessageModule;
   }
 
   public handle = ({
@@ -37,12 +37,12 @@ export class DbErrorHandler {
     message: string;
     detail: string;
   }): void => {
-    const errorType = this.getErrorTypeByErrorMessageModule(
+    const errorType = this.getDomainErrorByErrorMessageModule(
       message,
-      dbErrorMessagesToErrorTypesMap
+      dbErrorMessagesToDomainErrorsMap
     );
     switch (errorType) {
-      case ErrorType.KEY_DUPLICATION: {
+      case DbError.KEY_DUPLICATION: {
         const [key, value] = detail.match(/(?<=\().+?(?=\))/g);
         throw new ConflictException({
           message: 'conflict',
@@ -50,7 +50,7 @@ export class DbErrorHandler {
           value
         });
       }
-      case ErrorType.FOREIGN_KEY_VIOLATION: {
+      case DbError.FOREIGN_KEY_VIOLATION: {
         const [key, value] = detail.match(/(?<=\().+?(?=\))/g);
         throw new BadRequestException({
           message: 'invalid field',
@@ -58,14 +58,14 @@ export class DbErrorHandler {
           value
         });
       }
-      case ErrorType.INVALID_VALUE: {
+      case DbError.INVALID_VALUE: {
         const [value] = message.match(/(?<=").+?(?=")/);
         throw new BadRequestException({
           message: 'invalid value',
           value
         });
       }
-      case ErrorType.MISSING_KEY: {
+      case DbError.MISSING_KEY: {
         const [key] = message.match(/(?<=").+?(?=")/);
         throw new BadRequestException({
           message: 'missing field',

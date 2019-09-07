@@ -1,2 +1,2 @@
 export { GlobalErrorHandler, GlobalErrorHandlerModule } from './handlers';
-export { ErrorType } from './types/ErrorType';
+export { DomainError } from './types/DomainError';

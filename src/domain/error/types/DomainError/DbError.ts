@@ -1,4 +1,4 @@
-export enum ErrorType {
+export enum DbError {
   FOREIGN_KEY_VIOLATION = 'FOREIGN_KEY_VIOLATION',
   INVALID_VALUE = 'INVALID_VALUE',
   MISSING_KEY = 'MISSING_KEY',
