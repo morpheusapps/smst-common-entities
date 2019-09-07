@@ -1,4 +1,4 @@
-import { Env, Urls } from '../types/serverTypes';
+import { Env, Urls } from '../types';
 
 export const GetUrlByEnv = function(urls: Urls): (env: string) => string {
   return (env: string): string => {
