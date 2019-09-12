@@ -4,7 +4,7 @@ import { StudentService } from './student.service';
 import { StudentController } from './student.controller';
 import { Student } from './student.entity';
 import { FakeStudent } from './student.fake';
-import { Fakes } from '../../../tests/Fakes';
+import { Fakes } from '../../../tests-utils/Fakes';
 import { NotFoundException } from '@nestjs/common';
 
 describe('studentController', (): void => {

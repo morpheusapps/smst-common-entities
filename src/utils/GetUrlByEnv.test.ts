@@ -1,7 +1,7 @@
 import { GetUrlByEnv } from './GetUrlByEnv';
 import { Env, Urls } from '../types';
 import { FakeUrls } from '../types/index.fake';
-import { Fakes } from '../../tests/Fakes';
+import { Fakes } from '../../tests-utils/Fakes';
 
 describe('GetUrlByEnv', (): void => {
   let getUrlsByEnv: (env: string) => string;

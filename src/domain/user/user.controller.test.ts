@@ -4,7 +4,7 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { User } from './user.entity';
 import { FakeUser } from './user.fake';
-import { Fakes } from '../../../tests/Fakes';
+import { Fakes } from '../../../tests-utils/Fakes';
 import { NotFoundException } from '@nestjs/common';
 
 describe('userController', (): void => {

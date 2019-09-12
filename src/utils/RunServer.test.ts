@@ -1,7 +1,7 @@
 import express from 'express';
 import { NestFactory } from '@nestjs/core';
 import { RunServer } from './RunServer';
-import { Fakes } from '../../tests/Fakes';
+import { Fakes } from '../../tests-utils/Fakes';
 
 jest.mock('@nestjs/core', (): {} => ({
   NestFactory: {

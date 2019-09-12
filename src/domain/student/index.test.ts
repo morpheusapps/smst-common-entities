@@ -12,7 +12,7 @@ import { StudentService } from './student.service';
 import { Student } from './student.entity';
 import { StudentErrorInterceptor } from './studentError.interceptor';
 import { FakeStudent } from './student.fake';
-import { Fakes } from '../../../tests/Fakes';
+import { Fakes } from '../../../tests-utils/Fakes';
 
 describe('/student', (): void => {
   let app: INestApplication;

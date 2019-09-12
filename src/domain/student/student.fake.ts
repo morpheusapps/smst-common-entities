@@ -1,7 +1,7 @@
 import { Student } from '.';
 import { FakeSchool } from '../school';
 import { FakeUser } from '../user';
-import { Fakes } from '../../../tests/Fakes';
+import { Fakes } from '../../../tests-utils/Fakes';
 
 export const FakeStudent = (props?: Partial<Student>): Student => ({
   id: Fakes.uuid(),

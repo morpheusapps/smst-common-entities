@@ -12,7 +12,7 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { UserErrorInterceptor } from './userError.interceptor';
 import { FakeUser } from './user.fake';
-import { Fakes } from '../../../tests/Fakes';
+import { Fakes } from '../../../tests-utils/Fakes';
 
 describe('/user', (): void => {
   let app: INestApplication;
