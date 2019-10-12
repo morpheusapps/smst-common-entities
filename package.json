@@ -55,7 +55,7 @@
   },
   "scripts": {
     "start": "node build/src/index.js",
-    "dev": "PORT=8000 nodemon",
+    "dev": "PORT=8010 nodemon",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "lint": "eslint . --ext .ts --fix",
